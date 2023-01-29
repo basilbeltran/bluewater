@@ -1,36 +1,4 @@
-<html>
-	<head>
-	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<title>bluewater</title>
-		<style>
-			body {
-				margin: 0px;
-    			overflow: hidden;
-    			background-color: #ffffff;
-    			font-family: 'Arial';
-    		}
-
-			#help{
-				position: absolute;
-			    top: 1%;
-			    left: 1%;
-			    font-size: 30px;
-			    color:#324147;
-			}
-
-		</style>
-		
-        <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
-        <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.6.1/dist/aframe-extras.min.js"></script>
-        <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/896175/three.min.js"></script>
-        <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/896175/OrbitControls.js"></script>
-        <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/896175/Mirror.js "></script>
-        <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/896175/SkyShader.js"></script>
-        <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/896175/WaterShader.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.9/dat.gui.min.js"></script>
-
-		<script>
-		var container, stats;
+var container, stats;
 var camera, scene, renderer;
 
 var waterNormals;
@@ -306,32 +274,3 @@ function onWindowResize() {
 }
 
 
-		</script>
-		
-	</head>
-	<body>
-		<div id="help"></div>
-		
-		<div>
-
-		<a-scene>
-			<a-assets>
-				<a-asset-item id="link-obj" 
-											src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/17/YoungLink.obj">		  
-				</a-asset-item>
-				<a-asset-item id="link-mtl" 
-											src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/17/YoungLink.mtl">			
-				</a-asset-item>
-  		</a-assets>
-  
-			<a-entity scale="0.02 0.02 0.02" 
-									obj-model="obj: #link-obj; mtl: #link-mtl" 	
-									position="-1 0 -3" 
-									rotation="0 160 0">							
-			</a-entity>
-		</a-scene>
-
-		</div>
-	</body>
-	
-</html>
