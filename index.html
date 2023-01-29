@@ -316,19 +316,35 @@ function onWindowResize() {
 
 		<a-scene>
 			<a-assets>
-				<a-asset-item id="link-obj" 
-											src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/17/YoungLink.obj">		  
-				</a-asset-item>
-				<a-asset-item id="link-mtl" 
-											src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/17/YoungLink.mtl">			
-				</a-asset-item>
+
+
+
+				<a-asset-item id="link-mtl" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/17/YoungLink.mtl"></a-asset-item> 
+                 <a-asset-item id="link-obj" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/17/YoungLink.obj"></a-asset-item>
+
+
+                <!-- <a-asset-item id="rust-obj" src="https://basilbeltran.github.io/bluewater/mesh_s.obj"></a-asset-item>
+                <a-asset-item id="rust-mtl" src="https://basilbeltran.github.io/bluewater/mesh_s.mtl"></a-asset-item> -->
+
+                <a-asset-item id="rust-obj" src="https://basilbeltran.github.io/bluewater/mesh_s.obj"></a-asset-item>
+                <a-asset-item id="rust-mtl" src="https://basilbeltran.github.io/bluewater/mesh_s.mtl"></a-asset-item>
+
   		</a-assets>
   
 			<a-entity scale="0.02 0.02 0.02" 
-									obj-model="obj: #link-obj; mtl: #link-mtl" 	
+									obj-model="obj: #link-obj; mtl: #link-mtl" 
 									position="-1 0 -3" 
 									rotation="0 160 0">							
 			</a-entity>
+
+            <a-entity scale="0.02 0.02 0.02" 
+                                    obj-model="obj: #rust-obj; mtl: #rust-mtl" 
+                                    position="-1 0 -3" 
+                                    rotation="0 160 0">							
+            </a-entity>
+
+
+
 		</a-scene>
 
 		</div>
