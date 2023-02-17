@@ -6,7 +6,7 @@
 			body {
 				margin: 0px;
     			overflow: hidden;
-    			background-color: #ffffff;
+    			background-color: #f22fff;
     			font-family: 'Arial';
     		}
 
@@ -59,7 +59,7 @@ const debugObject = {
     waveSurfaceColor: "#4d9aaa",
     fogNear: 1,
     fogFar: 3,
-    fogColor: "#8e99a2" };
+    fogColor: "#6e99a2" };
 
 function Parameters() {
     this.test = 50;
@@ -167,7 +167,7 @@ function initSky() {
     // Add Sun Helper
     sunSphere = new THREE.Mesh(
         new THREE.SphereBufferGeometry( 20, 16, 8 ),
-        new THREE.MeshBasicMaterial( { color: 0xffffff } )
+        new THREE.MeshBasicMaterial( { color: 0x666666 } )
     );
     sunSphere.visible = false;
     scene.add( sunSphere );
@@ -265,7 +265,7 @@ function init() {
 	
 
 
-makePiles();
+//makePiles();
 	
 			
 	
@@ -316,9 +316,9 @@ function animate() {
     }
     //camera.position.y=v[7320].z*1.5 +14;
 	  camera.position.y=v[7320].z*1.5 +14;
-    camera.rotation.set(Math.cos(time/2)/12+44,  
-												Math.cos(time/15)*4,  
-												Math.cos(time/4)/10);
+    camera.rotation.set(Math.cos(time/4)/12+44,  
+						Math.cos(time/15)*2,  
+						Math.cos(time/8)/10);
 	  
 	
 	  // camera.position.set(time*-8,  
