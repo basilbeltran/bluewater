@@ -1,7 +1,7 @@
 <html>
 	<head>
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<title>bluewater</title>
+		<title>bluewater - a-frame models with three shaders </title>
 		<style>
 			body {
 				margin: 0px;
@@ -18,19 +18,68 @@
 			    color:#324147;
 			}
 
-		</style>
-		
-        <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
-        <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.6.1/dist/aframe-extras.min.js"></script>
-        <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/896175/three.min.js"></script>
-        <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/896175/OrbitControls.js"></script>
-        <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/896175/Mirror.js "></script>
-        <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/896175/SkyShader.js"></script>
-        <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/896175/WaterShader.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.9/dat.gui.min.js"></script>
+            .moveGUI{ 
+                position: absolute;
+                top: 13.1em;
+                right: -1em;
+            }
 
-		<script>
-		var container, stats;
+
+</style>
+		
+<script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+<script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.6.1/dist/aframe-extras.min.js"></script>
+<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/896175/three.min.js"></script>
+<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/896175/OrbitControls.js"></script>
+<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/896175/Mirror.js "></script>
+<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/896175/SkyShader.js"></script>
+<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/896175/WaterShader.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.9/dat.gui.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.9/dat.gui.js"></script>
+
+
+<script>
+
+
+//var gui = new dat.GUI({ name: "test" });
+
+// this.gui = new dat.GUI({ });
+
+// const bigWavesFolder =      gui.addFolder("Large Waves");
+// const smallWavesFolder =    gui.addFolder("Small Waves");
+// const colorFolder =         gui.addFolder("Colors");
+// const skyFolder =           gui.addFolder("Sky");
+// const sunFolder =           gui.addFolder("Sun");
+// const waterFolder =         gui.addFolder("Water");
+// const pilesFolder =         gui.addFolder("Piles");
+// const modelFolder =         gui.addFolder("Models");
+
+const debugObject = {
+    waveDepthColor: "#1e4d40",
+    waveSurfaceColor: "#4d9aaa",
+    fogNear: 1,
+    fogFar: 3,
+    fogColor: "#8e99a2" };
+
+function Parameters() {
+    this.test = 50;
+    this.cam1 = 7000;
+    this.cam2 = 1.5;
+    this.cam3 = 14;
+    this.toggleRun = () => { this.running = !this.running; };
+		}
+params = new Parameters();
+
+function Entities() {
+    this.dockRotationX = 1;
+    this.dockRotationY = 1;
+    this.dockRotationZ = 1;
+		}
+entities = new Entities();
+
+
+
+var container, stats;
 var camera, scene, renderer;
 
 var waterNormals;
@@ -80,12 +129,18 @@ var rusty;
         }
     }
 
-  this.cube = new THREE.Mesh(new THREE.CubeGeometry(this.conf.cube.width, 
-																											this.conf.cube.height, 
-																											this.conf.cube.depth, 
-																											this.conf.cube.rules, 
-																											this.conf.cube.rules, 
-																											this.conf.cube.rules));
+this.cube = new THREE.Mesh(new THREE.CubeGeometry(
+    this.conf.cube.width, 
+    this.conf.cube.height, 
+    this.conf.cube.depth, 
+    this.conf.cube.rules, 
+    this.conf.cube.rules, 
+    this.conf.cube.rules));
+
+    var test = THREE.Math.degToRad(entities.dockRotationZ);
+
+
+
 loader.load( 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/896175/waternormals.jpg', function ( t ) {
     t.mapping = THREE.UVMapping;
     waterNormals = t;
@@ -93,9 +148,15 @@ loader.load( 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/896175/waternormals.j
     rusty = loader.load( 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/896175/tex02.jpg')
     rusty.wrapS = rusty.wrapT = THREE.RepeatWrapping;
 
+
+
+
     init();
     animate();
 })
+
+
+
 
 function initSky() {
 
@@ -121,6 +182,12 @@ function initSky() {
     moveSun();
 }
 
+
+
+
+
+
+
 function moveSun(){
     var distance = 4500;
 
@@ -133,6 +200,11 @@ function moveSun(){
 
     sky.uniforms.sunPosition.value.copy( sunSphere.position );
 }
+
+
+
+
+
 
 function init() {
     container = document.createElement( 'div' );
@@ -186,35 +258,14 @@ function init() {
     light.shadow.mapSize.height = 2048;
     scene.add( light );
 
-    n = 110;
+    n = 10;
 
 
 	
 	
-		function Parameters() {
-			this.test = 50;
-			this.cam1 = 7000;
-			this.cam2 = 1.5;
-			this.cam3 = 14;
-			this.camxcamx = 50;
-			this.toggleRun = () => { this.running = !this.running; };
-		}
-	
-		this.gui = new dat.GUI({ name: "test" });
-		var testFLD = this.gui.addFolder("folder");
-		params = new Parameters();
-	
-		function initGui() {
-			// testFLD.add(params, "test", 1, 100).step(1).
-			// onChange(function () { makePiles(); });;
-			
-						testFLD.add(params, "cam1",5000, 10000).step(1)
-						testFLD.add(params, "cam2", .5, 3).step(.1)
-						testFLD.add(params, "cam3",1, 30).step(1)
 
-		}
-		initGui();
-		//makePiles();
+
+makePiles();
 	
 			
 	
@@ -306,48 +357,21 @@ function onWindowResize() {
 }
 
 
+
+
+
 		</script>
 		
 	</head>
 	<body>
-		<div id="help"></div>
-		
-		<div>
-
-		<a-scene>
-			<a-assets>
+		<div    id      =   "help"></div>
+        <div    class   =   'moveGUI'></div>
 
 
 
-				<a-asset-item id="link-mtl" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/17/YoungLink.mtl"></a-asset-item> 
-                 <a-asset-item id="link-obj" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/17/YoungLink.obj"></a-asset-item>
-
-
-                <!-- <a-asset-item id="rust-obj" src="https://basilbeltran.github.io/bluewater/mesh_s.obj"></a-asset-item>
-                <a-asset-item id="rust-mtl" src="https://basilbeltran.github.io/bluewater/mesh_s.mtl"></a-asset-item> -->
-
-                <a-asset-item id="rust-obj" src="https://basilbeltran.github.io/bluewater/mesh_s.obj"></a-asset-item>
-                <a-asset-item id="rust-mtl" src="https://basilbeltran.github.io/bluewater/mesh_s.mtl"></a-asset-item>
-
-  		</a-assets>
-  
-			<a-entity scale="0.02 0.02 0.02" 
-									obj-model="obj: #link-obj; mtl: #link-mtl" 
-									position="-1 0 -3" 
-									rotation="0 160 0">							
-			</a-entity>
-
-            <a-entity scale="0.02 0.02 0.02" 
-                                    obj-model="obj: #rust-obj; mtl: #rust-mtl" 
-                                    position="-1 0 -3" 
-                                    rotation="0 160 0">							
-            </a-entity>
-
-
-
-		</a-scene>
-
-		</div>
 	</body>
-	
 </html>
+
+
+
+
